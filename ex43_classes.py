@@ -60,6 +60,7 @@ class LaserWeaponArmory(Scene):
     '''激光武器库'''
 
     def enter(self):
+        '''随机数'''
         print("you do a dive roll into the weapon armory,crouch and scan the room")
         code = "%d%d%d"% (randint(1,9),randint(1,9),randint(1,9))
         guess = input("[keypad]>")
