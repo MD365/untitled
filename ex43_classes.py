@@ -61,7 +61,7 @@ class LaserWeaponArmory(Scene):
 
     def enter(self):
 
-        随机数/
+
 
         print("you do a dive roll into the weapon armory,crouch and scan the room")
         code = "%d%d%d"% (randint(1,9),randint(1,9),randint(1,9))
@@ -83,23 +83,60 @@ class LaserWeaponArmory(Scene):
 class TheBridge(Scene):
     '''主控室'''
     def enter(self):
-        pass
+        print("you burst onto the bridge with the netron destruct")
+        action = input(">")
+
+        if action == "throw the bomb":
+            print("in a panic you throw the bomb at the group of gothons")
+
+            return  'death'
+        elif action == "slowly place the bomb":
+            print("you point your blaster at the bomb under your arm")
+            print("get off this tin can")
+            return 'escape_pod'
+        else:
+            print("DOES NOT COMPUTE")
+            return "the_bridge"
 
 class EscapePod(Scene):
     '''救生舱'''
     def enter(self):
-        pass
+        print("you rush through the ship desperately trying to make it to ")
+        print("do you take")
+
+        good_pod = randint(1,5)
+        guess = input("[pod#>")
+
+        if int(guess)!=good_pod:
+            print("you jump into pod %s and hit the eject button") %guess
+
+            print("into jam jelly")
+            return "death"
+        else:
+            print("you jump into pod %s and hit the eject button")%guess
+            print("time. you won")
+
+            return  'finished'
 
 class Map(object):
     '''地图'''
+
+    scenes=[
+        'central_corridor':CentralCorridor(),
+        'laser_weapon_armory':LaserWeaponArmory(),
+        'the_bridge':TheBridge(),
+        'escape_pod':EscapePod(),
+        'death':Death()
+    ]
+
     def __init__(self,start_scene):
-        pass
+        self.start_scent= start_scene
 
     def next_scene(self,scene_name):
-        pass
+        return Map.scenes.get(scene_name)
 
     def opening_scene(self):
-        pass
+        return self.next_scene(self.start_scent)
 
 a_map = Map('central_corridor')
 a_game = Engine(a_map)
